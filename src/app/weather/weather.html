@@ -1,1 +1,28 @@
-<p>weather works!</p>
+@if (forecasts.length > 0) 
+{
+  <table>
+    <thead>
+      <th>Date</th>
+      <th>Temp. (C)</th>
+      <th>Temp. (F)</th>
+      <th>Summary</th>
+    </thead>
+    <tbody>
+      @for(weather of forecasts; track $index) 
+      {
+        <tr>
+          <td>{{ weather.date}}</td>
+          <td>{{ weather.temperatureC }}</td>
+          <td>{{ weather.temperatureF }}</td>
+          <td>{{ weather.summary }}</td>
+        </tr>
+      }
+
+    </tbody>
+  </table>
+}
+@else 
+{
+  <p>Loading...</p>
+}
+
