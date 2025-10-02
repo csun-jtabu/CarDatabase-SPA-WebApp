@@ -21,6 +21,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 });
 
+builder.Services.AddCors();
+
 // [Web server] app is the final build of everything added to the builder
 var app = builder.Build();
 
@@ -37,6 +39,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
