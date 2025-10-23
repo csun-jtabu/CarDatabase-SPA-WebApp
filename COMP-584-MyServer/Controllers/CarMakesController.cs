@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CarWorldModel;
+using COMP_584_MyServer.DTOs;
 
 namespace COMP_584_MyServer.Controllers
 {
@@ -20,6 +21,21 @@ namespace COMP_584_MyServer.Controllers
             return await context.CarMakes.ToListAsync();
         }
 
+        // GET: api/CarMakes/ModelCount
+        [HttpGet("modelcount")]
+        public async Task<ActionResult<IEnumerable<CarMakesModelCount>>> GetCarMakesModelCount()
+        {
+            return await context.CarMakes
+                .Select(c => new CarMakesModelCount
+                {
+                    Id = c.Id,
+                    Make = c.Make,
+                    Origin = c.Origin,
+                    ModelCount = c.CarModels.Count()
+                })
+                .ToListAsync();
+        }
+
         // GET: api/CarMakes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CarMake>> GetCarMake(int id)
@@ -32,6 +48,21 @@ namespace COMP_584_MyServer.Controllers
             }
 
             return carMake;
+        }
+
+        // GET: api/CarMakes/ModelCount/5
+        [HttpGet("modelcount/{id}")]
+        public ActionResult<CarMakesModelCount> GetCarMakesModelCount(int id)
+        {
+            return context.CarMakes
+                .Select(c => new CarMakesModelCount
+                {
+                    Id = c.Id,
+                    Make = c.Make,
+                    Origin = c.Origin,
+                    ModelCount = c.CarModels.Count()
+                })
+                .Single(c => c.Id == id);
         }
 
         // PUT: api/CarMakes/5
