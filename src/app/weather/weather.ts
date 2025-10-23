@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { WeatherData } from '../weather-data';
-import { MatToolbar } from "@angular/material/toolbar";
 
 @Component({
   selector: 'app-weather',
-  imports: [MatToolbar],
+  imports: [],
   templateUrl: './weather.html',
   styleUrl: './weather.scss'
 })

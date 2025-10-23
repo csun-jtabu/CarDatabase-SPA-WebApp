@@ -1,0 +1,26 @@
+@if (makes.length > 0) 
+{
+  <table>
+    <thead>
+      <th>Make ID</th>
+      <th>Make Name</th>
+      <th>Origin</th>
+    </thead>
+    <tbody>
+      @for(make of makes; track $index) 
+      {
+        <tr>
+          <td><a [routerLink]="['/car-make-model-count', make.id]">{{ make.id}}</a></td>
+          <td>{{ make.make }}</td>
+          <td>{{ make.origin }}</td>
+        </tr>
+      }
+
+    </tbody>
+  </table>
+}
+@else 
+{
+  <p>Loading...</p>
+}
+
