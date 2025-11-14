@@ -3,21 +3,20 @@ import { MakeData } from './make-data';
 import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-make',
-  imports: [RouterLink],
+  imports: [RouterLink, AsyncPipe],
   templateUrl: './make.html',
   styleUrl: './make.scss'
 })
 export class Make {
-  makes: MakeData[] = [];
+  makes$: Observable<MakeData[]>;
 
   constructor(http: HttpClient) 
   {
-    http.get<MakeData[]>(environment.apiUrl + "api/CarMakes").subscribe(result => {
-      this.makes = result;
-    });
-
+    this.makes$ = http.get<MakeData[]>(environment.apiUrl + "api/CarMakes");
   }
 }
