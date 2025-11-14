@@ -4,6 +4,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.Configuration.Attributes;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -12,7 +13,8 @@ namespace COMP_584_MyServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SeedController(Comp584MyCarDbContext context, IHostEnvironment environment) : ControllerBase
+    public class SeedController(Comp584MyCarDbContext context, IHostEnvironment environment, 
+        UserManager<CarWorldModelUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration) : ControllerBase
     {
         String _pathName = Path.Combine(environment.ContentRootPath, "Data", "Automobile.csv");
         // POST: api/CarMakes
@@ -108,5 +110,51 @@ namespace COMP_584_MyServer.Controllers
             // output the number of makes added
             return new JsonResult(modelCount);
         }
+
+        // POST: api/Users
+        [HttpPost("Users")]
+        public async Task<ActionResult> PostUsers()
+        {
+            string administrator = "administrator";
+            string registeredUser = "registereduser";
+            if (!await roleManager.RoleExistsAsync(administrator))
+            {
+                await roleManager.CreateAsync(new IdentityRole(administrator));
+            }
+
+            if (!await roleManager.RoleExistsAsync(registeredUser))
+            {
+                await roleManager.CreateAsync(new IdentityRole(registeredUser));
+            }
+
+            CarWorldModelUser adminUser = new()
+            {
+                UserName = "admin",
+                Email = "jaztinsimon.tabunda.27@my.csun.edu",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            await userManager.CreateAsync(adminUser, configuration["DefaultPasswords:admin"]!);
+            await userManager.AddToRoleAsync(adminUser, administrator);
+
+            CarWorldModelUser regularUser = new()
+            {
+                UserName = "user1",
+                Email = "user1@gmail.com",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            await userManager.CreateAsync(regularUser, configuration["DefaultPasswords:user"]!);
+            await userManager.AddToRoleAsync(regularUser, registeredUser);
+
+            return Ok();
+
+        }
+
     }
+ 
 }

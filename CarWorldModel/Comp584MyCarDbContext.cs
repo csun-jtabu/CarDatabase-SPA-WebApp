@@ -35,6 +35,7 @@ public partial class Comp584MyCarDbContext : IdentityDbContext<CarWorldModelUser
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<CarModel>(entity =>
         {
             entity.HasOne(d => d.Make).WithMany(p => p.CarModels)

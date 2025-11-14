@@ -6,6 +6,7 @@
 */
 
 using CarWorldModel;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -26,6 +27,12 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 });
+
+builder.Services.AddIdentity<CarWorldModelUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+})
+    .AddEntityFrameworkStores<Comp584MyCarDbContext>();
 
 builder.Services.AddCors();
 
