@@ -6,9 +6,14 @@
 */
 
 using CarWorldModel;
+using COMP_584_MyServer;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,13 +31,54 @@ builder.Services.AddDbContext<Comp584MyCarDbContext>(
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+    OpenApiSecurityScheme securityScheme = new()
+    {
+        Name = "COMP584-Authentication",
+        Type = SecuritySchemeType.Http,
+        Scheme = JwtBearerDefaults.AuthenticationScheme,
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter JWT Bearer token",
+        Reference = new OpenApiReference
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = JwtBearerDefaults.AuthenticationScheme
+        }
+    };
+    c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, securityScheme);
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        { securityScheme, new string[] { } }
+    });
+
 });
+
+builder.Services.AddScoped<JWTHandler>();
 
 builder.Services.AddIdentity<CarWorldModelUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
 })
     .AddEntityFrameworkStores<Comp584MyCarDbContext>();
+
+builder.Services.AddAuthentication(c =>
+{     c.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+      c.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(c =>
+{
+    c.TokenValidationParameters = new()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JwtSettings:validIssuer"],
+        ValidAudience = builder.Configuration["JwtSettings:validAudience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"]!))
+    };
+});
+
+
 
 builder.Services.AddCors();
 

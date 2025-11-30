@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CarWorldModel;
 using COMP_584_MyServer.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace COMP_584_MyServer.Controllers
 {
@@ -16,6 +17,7 @@ namespace COMP_584_MyServer.Controllers
     {
         // GET: api/CarMakes
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CarMake>>> GetCarMakes()
         {
             return await context.CarMakes.ToListAsync();
