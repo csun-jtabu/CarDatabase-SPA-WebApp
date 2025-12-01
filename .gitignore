@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Angular environment files
+/COMP-584-MyServer/environment.Development.ts
+/COMP-584-MyServer/environment.Production.ts
+/COMP-584-MyServer/appsettings.Development.json
+/COMP-584-MyServer/appsettings.Production.json
