@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { WeatherData } from '../weather-data';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-weather',
@@ -15,7 +16,8 @@ export class Weather {
 
   constructor(http: HttpClient) 
   {
-    this.forecasts$ = http.get<WeatherData[]>('https://localhost:7260/weatherforecast')
+    this.forecasts$ = http.get<WeatherData[]>(environment.apiUrl + "weatherforecast");
+    
     
   }
 }

@@ -8,7 +8,7 @@ import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-model',
-  imports: [RouterLink, AsyncPipe],
+  imports: [AsyncPipe],
   templateUrl: './model.html',
   styleUrl: './model.scss'
 })
