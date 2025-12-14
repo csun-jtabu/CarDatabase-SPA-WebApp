@@ -5,7 +5,7 @@
     <a mat-flat-button color="primary" [routerLink]="['/make']">Make</a> |
     <a mat-flat-button color="primary" [routerLink]="['/model']">Model</a>
     <span class="separator"></span>
-    @if (authService.isLoggedIn()) {
+    @if (isLoggedIn) {
         <a mat-flat-button color="primary" (click)="authService.logout()">Logout</a>
     }
     @else {
