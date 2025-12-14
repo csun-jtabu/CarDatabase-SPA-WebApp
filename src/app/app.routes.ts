@@ -4,6 +4,7 @@ import { Weather } from './weather/weather';
 import { Model } from './model/model';
 import { Make } from './make/make';
 import { CarMakeModelCount } from './car-make-model-count/car-make-model-count';
+import { Login } from './auth/login';
 
 
 export const routes: Routes = [
@@ -11,5 +12,6 @@ export const routes: Routes = [
   {path: 'model', component: Model},
   {path: 'make', component: Make},
   {path: 'weather', component: Weather},
-  {path: 'car-make-model-count/:id', component: CarMakeModelCount}
+  {path: 'car-make-model-count/:id', component: CarMakeModelCount},
+  {path: 'login', component: Login}
 ];
