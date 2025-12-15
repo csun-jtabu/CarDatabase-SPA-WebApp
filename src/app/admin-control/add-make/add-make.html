@@ -1,21 +1,32 @@
-<div>
-    <h1>Please fill out the details of the Car Make you would like to add.</h1>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <label>Name of Car Make</label>
-        <input type="text" formControlName="make">
-
-        <label>Country of Origin</label>
-        <input type="text" formControlName="origin">
-
-        <button type="submit">Add Make</button>
-    </form>
+<div style="text-align: center;">
+    <h3>Please fill out the details of the Car Make you would like to add.</h3>
+    <p style="color: red;">All fields need to be filled and cannot exceed 30 characters</p>
+    
     @if (submitted) 
     {
-      <p style="color: green;">Car make has been successfully added!</p>
+      <p style="color: green;"><b>Car make has been successfully added!</b></p>
     }
 
     @if (errorMessage) 
     {
-      <p style="color: red;">{{ errorMessage }}</p>
+      <p style="color: red;"><b>{{ errorMessage }}</b></p>
     }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+          <label>Name of Car Make: </label>
+          <input type="text" formControlName="make">
+        </div>
+        
+        <br>
+
+        <div>
+          <label>Country of Origin: </label>
+          <input type="text" formControlName="origin">
+        </div>
+        
+        <br>
+
+        <button type="submit">Add Make</button>
+    </form>
 </div>

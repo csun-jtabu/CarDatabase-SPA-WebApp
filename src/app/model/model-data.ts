@@ -1,7 +1,7 @@
 export interface ModelData {
   id: number,
   makeId: number,
-  model: "satellite",
+  model: string,
   mpg: number,
   cylinders: number,
   displacement: number,

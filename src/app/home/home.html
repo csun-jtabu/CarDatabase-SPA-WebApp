@@ -1,1 +1,52 @@
-<p>home works!</p>
+
+<div style="text-align: center;">
+  <h1>Welcome Home!</h1>
+  <h2>Mom Loves You</h2>
+  <p>This application is a <b>Single Page Application (SPA)</b> built with <b>Angular</b> on the Client Side.</p>
+  <p>The backend is powered by <b>ASP.NET Core/C#.</b></p>
+  <p><b>Model-View-Controller (MVC)</b> architecture is followed for both client and server sides.</p>
+
+  <p>The database used is Microsoft SQL Server.
+  <p>The database contains a <b>one-to-many relationship</b> between two tables: Car Makes (1) and Car Models (*).</p>
+    
+  <p><b>Authentication</b> has been implemented to allow users to log in and access the tables.</p>
+
+  <p><b>Authorization</b> has been implemented to restrict certain actions to Admin users only.</p>
+  <p><b>Regular Users</b> can view car makes and their associated models.</p>
+  <p><b>Administrators</b> can view, add, and delete entries as needed.</p>
+
+  <p>Login, Add, and Delete functionalities utilized <b>Reactive Forms</b> for complex data entry.</p>
+
+  <hr style="margin: 20px 0;">
+
+  <div style="text-align: left; display: inline-block; max-width: 600px;">
+    <h3>Navigation Overview:</h3>
+
+    <p>
+      <strong>Make List:</strong> View all car makes currently in the database. 
+      You can see the number of models associated with each make. Also, click on a make to view the number of models it has.
+    </p>
+
+    <p>
+      <strong>Model List:</strong> Check the models associated with each car make. 
+      This helps track which models belong to which make.
+    </p>
+
+    <p>
+      <strong>Add New Make:</strong> Add a new car make to the database. 
+      <b>Admin login is required.</b>
+    </p>
+
+    <p>
+      <strong>Delete a Make:</strong> Remove a car make from the database. 
+      <b>Admin login is required.</b>
+    </p>
+
+    <h4>Tips / Requirements:</h4>
+    <ul>
+      <li>Admin login is required for adding or deleting car makes.</li>
+      <li>All form fields have validation rules to prevent empty or invalid entries.</li>
+      <li>The system ensures that models are associated correctly with their makes.</li>
+    </ul>
+  </div>
+</div>

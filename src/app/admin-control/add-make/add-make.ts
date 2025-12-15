@@ -3,7 +3,6 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { AdminControlService } from '../admin-control-service';
 import { Router } from '@angular/router';
 import { CarMakeCreate } from './car-make-create';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-make',
@@ -53,7 +52,7 @@ export class AddMake implements OnInit {
     this.errorMessage = null;
     
     if (this.form.invalid) {
-      this.errorMessage = `Form is invalid. Please correct the errors and try again.`;
+      this.errorMessage = 'Form is invalid. Please correct the errors and try again.';
       return;
     }
     
@@ -70,10 +69,15 @@ export class AddMake implements OnInit {
           this.form.reset();  
         },
         error: result => {
-          console.log('Error' + result);
-          this.errorMessage = `Error occurred! Status code: ${result.status}`;
-      }
-    });
+          if (result.status === 403) 
+          {
+            this.errorMessage = 'Entry not submitted. Error 403. You do not have permission to perform this action.';
+          } else 
+          {
+            this.errorMessage = `Error occurred! Status code: ${result.status}`;
+          }
+          this.form.reset(); 
+    }});
   }
 
 }

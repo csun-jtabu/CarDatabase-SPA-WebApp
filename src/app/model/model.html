@@ -1,34 +1,36 @@
-<table>
-  <thead>
-    <th>Model ID</th>
-    <th>Make ID</th>
-    <th>Model</th>
-    <th>MPG</th>
-    <th>Cylinders</th>
-    <th>Displacement</th>
-    <th>Horsepower</th>
-    <th>Weight</th>
-    <th>Acceleration</th>
-    <th>Year</th>
-    <th>Make</th>
-  </thead>
-  <tbody>
-    @for(models of (models$ | async); track $index) 
-    {
-      <tr>
-        <td>{{ models.id}}</td>
-        <td>{{ models.makeId }}</td>
-        <td>{{ models.model }}</td>
-        <td>{{ models.mpg }}</td>
-        <td>{{ models.cylinders }}</td>
-        <td>{{ models.displacement }}</td>
-        <td>{{ models.horsepower }}</td>
-        <td>{{ models.weight }}</td>
-        <td>{{ models.acceleration }}</td>
-        <td>{{ models.modelYear }}</td>
-        <td>{{ models.make }}</td>
-      </tr>
-    }
+<div style="text-align: center;">
+  <table style="margin-left:auto; margin-right:auto;">
+    <thead>
+      <th>Model ID</th>
+      <th>Make ID</th>
+      <th>Model</th>
+      <th>MPG</th>
+      <th>Cylinders</th>
+      <th>Displacement</th>
+      <th>Horsepower</th>
+      <th>Weight</th>
+      <th>Acceleration</th>
+      <th>Year</th>
+      <th>Make</th>
+    </thead>
+    <tbody>
+      @for(models of (models$ | async); track $index) 
+      {
+        <tr>
+          <td>{{ models.id}}</td>
+          <td>{{ models.makeId }}</td>
+          <td>{{ models.model }}</td>
+          <td>{{ models.mpg }}</td>
+          <td>{{ models.cylinders }}</td>
+          <td>{{ models.displacement }}</td>
+          <td>{{ models.horsepower }}</td>
+          <td>{{ models.weight }}</td>
+          <td>{{ models.acceleration }}</td>
+          <td>{{ models.modelYear }}</td>
+          <td>{{ models.make }}</td>
+        </tr>
+      }
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

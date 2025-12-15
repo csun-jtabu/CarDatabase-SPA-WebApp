@@ -1,18 +1,20 @@
-<table>
-  <thead>
-    <th>Make ID</th>
-    <th>Make Name</th>
-    <th>Origin</th>
-  </thead>
-  <tbody>
-    @for(make of (makes$ | async); track $index) 
-    {
-      <tr>
-        <td><a [routerLink]="['/car-make-model-count', make.id]">{{ make.id}}</a></td>
-        <td>{{ make.make }}</td>
-        <td>{{ make.origin }}</td>
-      </tr>
-    }
+<div style="text-align: center;">
+  <table table style="margin-left:auto; margin-right:auto;">
+    <thead>
+      <th>Make ID</th>
+      <th>Make Name</th>
+      <th>Origin</th>
+    </thead>
+    <tbody>
+      @for(make of (makes$ | async); track $index) 
+      {
+        <tr>
+          <td><a [routerLink]="['/car-make-model-count', make.id]">{{ make.id}}</a></td>
+          <td>{{ make.make }}</td>
+          <td>{{ make.origin }}</td>
+        </tr>
+      }
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>

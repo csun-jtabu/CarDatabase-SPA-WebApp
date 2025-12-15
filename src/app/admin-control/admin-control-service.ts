@@ -16,5 +16,9 @@ export class AdminControlService {
   addMake(carMake: CarMakeCreate): Observable<MakeData> {
     return this.http.post<MakeData>(environment.apiUrl + "api/CarMakes", carMake);
   }
+
+  deleteMake(id: number): Observable<MakeData> {
+    return this.http.delete<MakeData>(`${environment.apiUrl}api/CarMakes/${id}`);
+  }
   
 }
