@@ -117,18 +117,28 @@ namespace COMP_584_MyServer.Controllers
 
         // DELETE: api/CarMakes/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "administrator")]
         public async Task<IActionResult> DeleteCarMake(int id)
         {
             var carMake = await context.CarMakes.FindAsync(id);
+            bool hasModels = await context.CarModels.AnyAsync(m => m.MakeId == id);
             if (carMake == null)
             {
                 return NotFound();
             }
 
+            // Check if there are any models referencing this make
+            
+            if (hasModels)
+            {
+                // Return 400 Bad Request with a message
+                return BadRequest("Cannot delete this car make. All of its models must be deleted first.");
+            }
+
             context.CarMakes.Remove(carMake);
             await context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(carMake);
         }
 
         private bool CarMakeExists(int id)

@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CarWorldModel;
+using COMP_584_MyServer.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using CarWorldModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace COMP_584_MyServer.Controllers
 {
@@ -22,9 +23,25 @@ namespace COMP_584_MyServer.Controllers
 
         // GET: api/CarModels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CarModel>>> GetCarModels()
+        public async Task<ActionResult<IEnumerable<CarModelInfo>>> GetCarModels()
         {
-            return await _context.CarModels.Take(100).ToListAsync();
+            // return await _context.CarModels.ToListAsync();
+            return await _context.CarModels
+                .Select(m => new CarModelInfo
+                {
+                    Id = m.Id,
+                    MakeId = m.MakeId,
+                    Model = m.Model,
+                    Mpg = m.Mpg,
+                    Cylinders = m.Cylinders,
+                    Displacement = m.Displacement,
+                    Horsepower = m.Horsepower,
+                    Weight = m.Weight,
+                    Acceleration = m.Acceleration,
+                    ModelYear = m.ModelYear,
+                    Make = m.Make.Make  // Use the navigation property to get the CarMake name
+                })
+                .ToListAsync();
         }
 
         // GET: api/CarModels/5
