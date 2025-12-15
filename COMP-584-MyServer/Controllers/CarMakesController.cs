@@ -17,7 +17,7 @@ namespace COMP_584_MyServer.Controllers
     {
         // GET: api/CarMakes
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "registereduser, administrator")]
         public async Task<ActionResult<IEnumerable<CarMake>>> GetCarMakes()
         {
             return await context.CarMakes.ToListAsync();
@@ -99,10 +99,16 @@ namespace COMP_584_MyServer.Controllers
         }
 
         // POST: api/CarMakes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // This adds a new Car Make to the database. Only users in the "administrator" role can perform this action.
         [HttpPost]
-        public async Task<ActionResult<CarMake>> PostCarMake(CarMake carMake)
+        [Authorize(Roles = "administrator")]
+        public async Task<ActionResult<CarMake>> PostCarMake(CarMakeCreate dto)
         {
+            var carMake = new CarMake
+            {
+                Make = dto.Make,
+                Origin = dto.Origin
+            };
             context.CarMakes.Add(carMake);
             await context.SaveChangesAsync();
 
