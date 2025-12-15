@@ -2,7 +2,9 @@
   <mat-toolbar color="primary">
     <button mat-icon-button [routerLink]="['/']"><mat-icon color="accent">home</mat-icon></button> |
     <a mat-flat-button color="primary" [routerLink]="['/make']">Make</a> |
-    <a mat-flat-button color="primary" [routerLink]="['/model']">Model</a>
+    <a mat-flat-button color="primary" [routerLink]="['/model']">Model</a> |
+    <a mat-flat-button color="primary" [routerLink]="['add-make']">Add New Make</a> |
+    <a mat-flat-button color="primary" [routerLink]="['/delete-make']">Delete a Make</a> 
     <span class="separator"></span>
     @if (isLoggedIn) {
         <a mat-flat-button color="primary" (click)="authService.logout()">Logout</a>

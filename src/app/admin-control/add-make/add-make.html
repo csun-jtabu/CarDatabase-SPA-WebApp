@@ -1,0 +1,21 @@
+<div>
+    <h1>Please fill out the details of the Car Make you would like to add.</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <label>Name of Car Make</label>
+        <input type="text" formControlName="make">
+
+        <label>Country of Origin</label>
+        <input type="text" formControlName="origin">
+
+        <button type="submit">Add Make</button>
+    </form>
+    @if (submitted) 
+    {
+      <p style="color: green;">Car make has been successfully added!</p>
+    }
+
+    @if (errorMessage) 
+    {
+      <p style="color: red;">{{ errorMessage }}</p>
+    }
+</div>
