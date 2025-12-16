@@ -17,7 +17,7 @@ namespace COMP_584_MyServer.Controllers
     {
         // GET: api/CarMakes
         [HttpGet]
-        [Authorize(Roles = "registereduser, administrator")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CarMake>>> GetCarMakes()
         {
             return await context.CarMakes.ToListAsync();
@@ -25,6 +25,7 @@ namespace COMP_584_MyServer.Controllers
 
         // GET: api/CarMakes/ModelCount
         [HttpGet("modelcount")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CarMakesModelCount>>> GetCarMakesModelCount()
         {
             return await context.CarMakes

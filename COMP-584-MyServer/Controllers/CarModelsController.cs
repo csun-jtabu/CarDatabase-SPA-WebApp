@@ -25,6 +25,7 @@ namespace COMP_584_MyServer.Controllers
 
         // GET: api/CarModels
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CarModelInfo>>> GetCarModels()
         {
             // return await _context.CarModels.ToListAsync();
@@ -152,18 +153,38 @@ namespace COMP_584_MyServer.Controllers
 
         // DELETE: api/CarModels/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "administrator")]
         public async Task<IActionResult> DeleteCarModel(int id)
         {
             var carModel = await _context.CarModels.FindAsync(id);
+            
             if (carModel == null)
             {
                 return NotFound();
             }
 
+            var result = await _context.CarModels
+                .Where(m => m.Id == id)
+                .Select(m => new CarModelInfo
+                {
+                    Id = m.Id,
+                    MakeId = m.MakeId,
+                    Model = m.Model,
+                    Mpg = m.Mpg,
+                    Cylinders = m.Cylinders,
+                    Displacement = m.Displacement,
+                    Horsepower = m.Horsepower,
+                    Weight = m.Weight,
+                    Acceleration = m.Acceleration,
+                    ModelYear = m.ModelYear,
+                    Make = m.Make.Make
+                })
+                .SingleOrDefaultAsync();
+
             _context.CarModels.Remove(carModel);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(result);
         }
 
         private bool CarModelExists(int id)
