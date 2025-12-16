@@ -1,1 +1,39 @@
-<p>delete-model works!</p>
+<div style="text-align: center;">
+    <h5 style="color: orange;">(Friendly Reminder: Only Administrators can perform this)</h5>
+    <h3>Please enter the Model ID of the Car Model you want to get rid of</h3>
+    <h4>(refer to 'Models' section)</h4>
+
+    <p style="color: red;">Field needs to be filled with an ID number greater than 0</p>
+    
+    @if (submitted) 
+    {
+      <p style="color: green;"><b>Successfully Deleted Car Model:</b></p> 
+      <p style="color: green;"><b>ID: {{ deletedModel?.id }}</b></p>
+      <p style="color: green;"><b>Make ID: {{ deletedModel?.makeId }}</b></p>
+      <p style="color: green;"><b>Make: {{ deletedModel?.make }}</b></p>
+      <p style="color: green;"><b>Model: {{ deletedModel?.model }}</b></p>
+      <p style="color: green;"><b>MPG: {{ deletedModel?.mpg }}</b></p>
+      <p style="color: green;"><b>Cylinders: {{ deletedModel?.cylinders }}</b></p>
+      <p style="color: green;"><b>Displacement: {{ deletedModel?.displacement }}</b></p>
+      <p style="color: green;"><b>Horsepower: {{ deletedModel?.horsepower }}</b></p>
+      <p style="color: green;"><b>Weight: {{ deletedModel?.weight }}</b></p>
+      <p style="color: green;"><b>Acceleration: {{ deletedModel?.acceleration }}</b></p>
+      <p style="color: green;"><b>Model Year: {{ deletedModel?.modelYear }}</b></p>
+    }
+
+    @if (errorMessage) 
+    {
+      <p style="color: red;"><b>{{ errorMessage }}</b></p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+          <label>Model ID: </label>
+          <input type="number" formControlName="modelId">
+        </div>
+        
+        <br>
+
+        <button type="submit">Delete Model</button>
+    </form>
+</div>

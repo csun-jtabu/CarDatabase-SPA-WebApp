@@ -1,12 +1,12 @@
 <header>
   <mat-toolbar color="primary">
-    <button mat-icon-button [routerLink]="['/']"><mat-icon style="color: rgb(235, 235, 235);">home</mat-icon></button> |
+    <button mat-icon-button [routerLink]="['/']"><mat-icon style="color: white;">home</mat-icon></button> |
     <a mat-flat-button color="primary" [routerLink]="['/make']">Makes</a> |
     <a mat-flat-button color="primary" [routerLink]="['/model']">Models</a> |
-    <a mat-flat-button color="primary" [routerLink]="['/add-make']">Add a Make</a> |
-    <a mat-flat-button color="primary" [routerLink]="['/delete-make']">Delete a Make</a>
-    <a mat-flat-button color="primary" [routerLink]="['/add-model']">Add a Model</a> |
-    <a mat-flat-button color="primary" [routerLink]="['/delete-model']">Delete a Model</a> 
+    <a mat-flat-button color="primary" [routerLink]="['/add-make']" style="color: orange;">Add a Make</a> |
+    <a mat-flat-button color="primary" [routerLink]="['/delete-make']" style="color: orange;">Delete a Make</a> |
+    <a mat-flat-button color="primary" [routerLink]="['/add-model']" style="color: orange;">Add a Model</a> |
+    <a mat-flat-button color="primary" [routerLink]="['/delete-model']" style="color: orange;">Delete a Model</a> 
     <span class="separator"></span>
     @if (isLoggedIn) {
         <a mat-flat-button color="primary" (click)="authService.logout()">Logout</a>

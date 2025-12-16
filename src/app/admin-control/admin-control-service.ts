@@ -27,8 +27,8 @@ export class AdminControlService {
     return this.http.post<ModelData>(environment.apiUrl + "api/CarModels", carModel);
   }
 
-  // deleteModel(id: number): Observable<MakeData> {
-  //   return this.http.delete<MakeData>(`${environment.apiUrl}api/CarMakes/${id}`);
-  // }
+  deleteModel(id: number): Observable<ModelData> {
+    return this.http.delete<ModelData>(`${environment.apiUrl}api/CarModels/${id}`);
+  }
   
 }
