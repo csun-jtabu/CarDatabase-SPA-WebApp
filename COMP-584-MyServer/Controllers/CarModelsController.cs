@@ -1,5 +1,7 @@
 ﻿using CarWorldModel;
 using COMP_584_MyServer.DTOs;
+using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -92,12 +94,60 @@ namespace COMP_584_MyServer.Controllers
         // POST: api/CarModels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CarModel>> PostCarModel(CarModel carModel)
+        [Authorize(Roles = "administrator")]
+        public async Task<ActionResult<CarModel>> PostCarModel(CarModelCreate dto)
         {
+            //_context.CarModels.Add(carModel);
+            //await _context.SaveChangesAsync();
+
+            //return CreatedAtAction("GetCarModel", new { id = carModel.Id }, carModel);
+
+            bool makeExists = await _context.CarMakes.AnyAsync(m => m.Id == dto.MakeId);
+
+            if (!makeExists)
+            {
+                return BadRequest("Invalid MakeId.");
+            }
+
+            var carModel = new CarModel
+            {
+                MakeId = dto.MakeId,
+                Model = dto.Model,
+                Mpg = dto.Mpg,
+                Cylinders = dto.Cylinders,
+                Displacement = dto.Displacement,
+                Horsepower = dto.Horsepower,
+                Weight = dto.Weight,
+                Acceleration = dto.Acceleration,
+                ModelYear = dto.ModelYear
+            };
+
             _context.CarModels.Add(carModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCarModel", new { id = carModel.Id }, carModel);
+            // this is to get the make name for the response
+            var makeName = await _context.CarMakes
+                .Where(m => m.Id == carModel.MakeId)
+                .Select(m => m.Make)
+                .FirstAsync();
+
+            // this is to create the response DTO
+            var result = new CarModelInfo
+            {
+                Id = carModel.Id,
+                MakeId = carModel.MakeId,
+                Model = carModel.Model,
+                Mpg = carModel.Mpg,
+                Cylinders = carModel.Cylinders,
+                Displacement = carModel.Displacement,
+                Horsepower = carModel.Horsepower,
+                Weight = carModel.Weight,
+                Acceleration = carModel.Acceleration,
+                ModelYear = carModel.ModelYear,
+                Make = makeName
+            };
+
+            return CreatedAtAction("GetCarModel", new { id = carModel.Id }, result);
         }
 
         // DELETE: api/CarModels/5
