@@ -5,6 +5,8 @@ import { CarMakeCreate } from './add-make/car-make-create';
 import { MakeData } from '../make/make-data';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { CarModelCreate } from './add-model/car-model-create';
+import { ModelData } from '../model/model-data';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +22,13 @@ export class AdminControlService {
   deleteMake(id: number): Observable<MakeData> {
     return this.http.delete<MakeData>(`${environment.apiUrl}api/CarMakes/${id}`);
   }
+
+  addModel(carModel: CarModelCreate): Observable<ModelData> {
+    return this.http.post<ModelData>(environment.apiUrl + "api/CarModels", carModel);
+  }
+
+  // deleteModel(id: number): Observable<MakeData> {
+  //   return this.http.delete<MakeData>(`${environment.apiUrl}api/CarMakes/${id}`);
+  // }
   
 }

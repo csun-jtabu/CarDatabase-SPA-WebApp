@@ -1,5 +1,4 @@
-export interface ModelData {
-  id: number;
+export interface CarModelCreate {
   makeId: number;
   model: string;
   mpg: number;
@@ -9,5 +8,4 @@ export interface ModelData {
   weight: number;
   acceleration: number;
   modelYear: number;
-  make: string;
 }

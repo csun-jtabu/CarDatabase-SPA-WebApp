@@ -3,8 +3,10 @@
     <button mat-icon-button [routerLink]="['/']"><mat-icon style="color: rgb(235, 235, 235);">home</mat-icon></button> |
     <a mat-flat-button color="primary" [routerLink]="['/make']">Makes</a> |
     <a mat-flat-button color="primary" [routerLink]="['/model']">Models</a> |
-    <a mat-flat-button color="primary" [routerLink]="['add-make']">Add New Make</a> |
-    <a mat-flat-button color="primary" [routerLink]="['/delete-make']">Delete a Make</a> 
+    <a mat-flat-button color="primary" [routerLink]="['/add-make']">Add a Make</a> |
+    <a mat-flat-button color="primary" [routerLink]="['/delete-make']">Delete a Make</a>
+    <a mat-flat-button color="primary" [routerLink]="['/add-model']">Add a Model</a> |
+    <a mat-flat-button color="primary" [routerLink]="['/delete-model']">Delete a Model</a> 
     <span class="separator"></span>
     @if (isLoggedIn) {
         <a mat-flat-button color="primary" (click)="authService.logout()">Logout</a>
