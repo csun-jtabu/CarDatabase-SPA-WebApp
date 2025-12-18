@@ -42,7 +42,7 @@ export class AddMake implements OnInit {
   ngOnInit(): void {
       this.form = new FormGroup({
         'make': new FormControl<string>('', [Validators.required, Validators.maxLength(30), this.noWhitespaceValidator]),
-        'origin': new FormControl<string>('', [Validators.required, Validators.maxLength(30), this.noWhitespaceValidator])
+        'origin': new FormControl<string>('', [Validators.required, Validators.maxLength(50), this.noWhitespaceValidator])
     });
   }
 

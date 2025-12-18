@@ -8,6 +8,7 @@ import { AddMake } from './admin-control/add-make/add-make';
 import { DeleteMake } from './admin-control/delete-make/delete-make';
 import { AddModel } from './admin-control/add-model/add-model';
 import { DeleteModel } from './admin-control/delete-model/delete-model';
+import { authGuard } from './auth/auth-guard';
 
 
 export const routes: Routes = [
@@ -16,8 +17,8 @@ export const routes: Routes = [
   {path: 'make', component: Make},
   {path: 'car-make-model-count/:id', component: CarMakeModelCount},
   {path: 'login', component: Login},
-  {path: 'add-make', component: AddMake},
-  {path: 'delete-make', component: DeleteMake},
-  {path: 'add-model', component: AddModel},
-  {path: 'delete-model', component: DeleteModel}
+  {path: 'add-make', component: AddMake, canActivate: [authGuard]},
+  {path: 'delete-make', component: DeleteMake, canActivate: [authGuard]},
+  {path: 'add-model', component: AddModel, canActivate: [authGuard]},
+  {path: 'delete-model', component: DeleteModel, canActivate: [authGuard]}
 ];

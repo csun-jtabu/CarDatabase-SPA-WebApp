@@ -22,7 +22,7 @@ export class DeleteModel {
   // Initializes the form for add make component (form containing make and origin fields).
   ngOnInit(): void {
       this.form = new FormGroup({
-        'modelId': new FormControl<number>(0, [Validators.required, Validators.min(1)])
+        'modelId': new FormControl<number | null>(null, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)])
       });
   }
 

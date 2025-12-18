@@ -22,7 +22,7 @@ export class DeleteMake implements OnInit {
   // Initializes the form for add make component (form containing make and origin fields).
   ngOnInit(): void {
       this.form = new FormGroup({
-        'makeId': new FormControl<number>(0, [Validators.required, Validators.min(1)])
+        'makeId': new FormControl<number | null>(null, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)])
     });
   }
 

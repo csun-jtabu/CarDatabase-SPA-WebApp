@@ -41,15 +41,15 @@ export class AddModel implements OnInit {
   // Initializes the form for add make component (form containing make and origin fields).
   ngOnInit(): void {
       this.form = new FormGroup({
-        'makeId': new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
+        'makeId': new FormControl<number | null>(null, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]),
         'model': new FormControl<string>('', [Validators.required, Validators.maxLength(50), this.noWhitespaceValidator]),
         'mpg': new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-        'cylinders': new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
+        'cylinders': new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]),
         'displacement': new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-        'horsepower': new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-        'weight': new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
+        'horsepower': new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]),
+        'weight': new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]),
         'acceleration': new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-        'modelYear': new FormControl<number | null>(null, [Validators.required, Validators.min(0)])
+        'modelYear': new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)])
     });
   }
 
