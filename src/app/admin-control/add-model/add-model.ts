@@ -3,10 +3,15 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { AdminControlService } from '../admin-control-service';
 import { Router } from '@angular/router';
 import { CarModelCreate } from './car-model-create';
+import { MakeData } from '../../make/make-data';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-model',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './add-model.html',
   styleUrl: './add-model.scss'
 })
@@ -15,9 +20,12 @@ export class AddModel implements OnInit {
   form!:FormGroup;
   submitted = false;
   errorMessage: string | null = null;
+  makes$ : Observable<MakeData[]>;
 
-  constructor(private adminService: AdminControlService, private router: Router)
-  {}
+  constructor(private adminService: AdminControlService, private router: Router, private http: HttpClient)
+  {
+    this.makes$ = http.get<MakeData[]>(environment.apiUrl + "api/CarMakes");
+  }
 
   // Validator method to check for whitespace-only input
   noWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
@@ -38,20 +46,21 @@ export class AddModel implements OnInit {
     }
   }
 
-  // Initializes the form for add make component (form containing make and origin fields).
+  // Initializes the form for add model components 
+  // with validation rules like minimum values and required fields
   ngOnInit(): void {
       this.form = new FormGroup({
         'makeId': new FormControl<number | null>(null, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]),
         'model': new FormControl<string>('', [Validators.required, Validators.maxLength(50), this.noWhitespaceValidator]),
-        'mpg': new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-        'cylinders': new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]),
-        'displacement': new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-        'horsepower': new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]),
-        'weight': new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]),
-        'acceleration': new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-        'modelYear': new FormControl<number | null>(null, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)])
-    });
-  }
+        'mpg': new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
+        'cylinders': new FormControl<number | null>(null, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]),
+        'displacement': new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
+        'horsepower': new FormControl<number | null>(null, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]),
+        'weight': new FormControl<number | null>(null, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]),
+        'acceleration': new FormControl<number | null>(null, [Validators.required, Validators.min(0.01)]),
+        'modelYear': new FormControl<number | null>(null, [Validators.required, Validators.min(1886), Validators.pattern(/^\d+$/)])
+      });
+  }  
 
   // Submits the add make form and calls the 
   onSubmit(): void {

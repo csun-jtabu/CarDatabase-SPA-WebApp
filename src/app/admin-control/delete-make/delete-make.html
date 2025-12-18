@@ -1,9 +1,6 @@
 <div style="text-align: center;">
     <h5 style="color: orange;">(Friendly Reminder: Only Administrators can perform this)</h5>
-    <h3>Please enter the Make ID of the Car Make you want to get rid of</h3>
-    <h4>(refer to 'Makes' section)</h4>
-
-    <p style="color: red;">Field needs to be filled with an ID number greater than 0</p>
+    <h3>Please Select the Car Make you want to get rid of</h3>
     
     @if (submitted) 
     {
@@ -20,8 +17,15 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div>
-          <label>Make ID: </label>
-          <input type="number" formControlName="makeId">
+          <label for="makeId">Make: </label>
+          <select id="makeId" formControlName="makeId">
+          <option value="">Select a Make</option>
+          
+          @for (make of (makes$ | async); track $index) 
+          {
+              <option [value]="make.id">{{ make.make }}</option>
+          }
+          </select>
         </div>
         
         <br>

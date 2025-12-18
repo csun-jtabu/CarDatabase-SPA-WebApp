@@ -3,10 +3,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ModelData } from '../../model/model-data';
 import { AdminControlService } from '../admin-control-service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-delete-model',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './delete-model.html',
   styleUrl: './delete-model.scss'
 })
@@ -16,8 +20,13 @@ export class DeleteModel {
   submitted = false;
   errorMessage: string | null = null;
   deletedModel: ModelData | null = null;
+  
+  models$!: Observable<ModelData[]>;
 
-  constructor(private adminService: AdminControlService, private router: Router) {}
+  constructor(private adminService: AdminControlService, private router: Router, private http: HttpClient) 
+  {
+    this.models$ = http.get<ModelData[]>(environment.apiUrl + "api/CarModels");
+  }
 
   // Initializes the form for add make component (form containing make and origin fields).
   ngOnInit(): void {

@@ -17,8 +17,16 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
         <div>
-            <label>Make ID: </label>
-            <input type="number" formControlName="makeId">
+            <label for="makeId">Make: </label>
+            <select id="makeId" formControlName="makeId">
+            <option value="">Select a Make</option>
+            
+            @for (make of (makes$ | async); track $index) 
+            {
+                <option [value]="make.id">{{ make.make }}</option>
+            }
+            </select>
+            
         </div>
         <br>
 

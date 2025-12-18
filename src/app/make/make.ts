@@ -15,7 +15,7 @@ import { AsyncPipe } from '@angular/common';
 export class Make {
   makes$: Observable<MakeData[]>;
 
-  constructor(http: HttpClient) 
+  constructor(private http: HttpClient) 
   {
     this.makes$ = http.get<MakeData[]>(environment.apiUrl + "api/CarMakes");
   }

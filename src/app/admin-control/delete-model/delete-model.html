@@ -1,9 +1,6 @@
 <div style="text-align: center;">
     <h5 style="color: orange;">(Friendly Reminder: Only Administrators can perform this)</h5>
-    <h3>Please enter the Model ID of the Car Model you want to get rid of</h3>
-    <h4>(refer to 'Models' section)</h4>
-
-    <p style="color: red;">Field needs to be filled with an ID number greater than 0</p>
+    <h3>Select the Car Model you want to get rid of</h3>
     
     @if (submitted) 
     {
@@ -28,8 +25,15 @@
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div>
-          <label>Model ID: </label>
-          <input type="number" formControlName="modelId">
+          <label for="modelId">Model: </label>
+          <select id="modelId" formControlName="modelId">
+          <option value="">Select a Model</option>
+          
+          @for (model of (models$ | async); track $index) 
+          {
+              <option [value]="model.id">{{ model.id }} {{ model.make }} {{ model.model }}</option>
+          }
+          </select>
         </div>
         
         <br>

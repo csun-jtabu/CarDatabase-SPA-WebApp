@@ -3,10 +3,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AdminControlService } from '../admin-control-service';
 import { Router } from '@angular/router';
 import { MakeData } from '../../make/make-data';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-delete-make',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './delete-make.html',
   styleUrl: './delete-make.scss'
 })
@@ -16,8 +20,12 @@ export class DeleteMake implements OnInit {
   submitted = false;
   errorMessage: string | null = null;
   deletedMake: MakeData | null = null;
+  makes$ : Observable<MakeData[]>;
 
-  constructor(private adminService: AdminControlService, private router: Router) {}
+  constructor(private adminService: AdminControlService, private router: Router, private http: HttpClient) 
+  {
+    this.makes$ = http.get<MakeData[]>(environment.apiUrl + "api/CarMakes");
+  }
 
   // Initializes the form for add make component (form containing make and origin fields).
   ngOnInit(): void {
