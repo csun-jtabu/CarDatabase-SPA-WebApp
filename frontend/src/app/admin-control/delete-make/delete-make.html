@@ -1,0 +1,35 @@
+<div style="text-align: center;">
+    <h5 style="color: orange;">(Friendly Reminder: Only Administrators can perform this)</h5>
+    <h3>Please Select the Car Make you want to get rid of</h3>
+    
+    @if (submitted) 
+    {
+      <p style="color: green;"><b>Successfully Deleted Car Make: </b></p> 
+      <p style="color: green;"><b>ID: {{ deletedMake?.id }}</b></p>
+      <p style="color: green;"><b>Name: {{ deletedMake?.make }}</b></p>
+      <p style="color: green;"><b>Origin: {{ deletedMake?.origin }}</b></p>
+    }
+
+    @if (errorMessage) 
+    {
+      <p style="color: red;"><b>{{ errorMessage }}</b></p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="makeId">Make: </label>
+          <select id="makeId" formControlName="makeId">
+          <option value="">Select a Make</option>
+          
+          @for (make of (makes$ | async); track $index) 
+          {
+              <option [value]="make.id">{{ make.make }}</option>
+          }
+          </select>
+        </div>
+        
+        <br>
+
+        <button type="submit">Delete Make</button>
+    </form>
+</div>

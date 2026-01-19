@@ -1,0 +1,10 @@
+<div style="text-align: center;">
+@if (makeModelCount$ | async; as makeModelCount) {
+  <p><b>{{ makeModelCount.make }}</b> has <b>{{ makeModelCount.modelCount }} models</b> to choose from.</p>
+}
+@else {
+  <p>Loading...</p>
+}
+
+  <a [routerLink]="['/make']">Make List</a>
+</div>

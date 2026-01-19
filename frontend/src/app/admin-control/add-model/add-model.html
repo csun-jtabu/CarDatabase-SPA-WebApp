@@ -1,0 +1,83 @@
+<div style="text-align: center;">
+    <h5 style="color: orange;">(Friendly Reminder: Only Administrators can perform this)</h5>
+    <h3>Please fill out the details of the Car Model you would like to add.</h3>
+    <p style="color: red;">All fields need to be filled and numeric fields must be positive values.</p>
+    
+
+    @if (submitted) 
+    {
+        <p style="color: green;"><b>Car model has been successfully added!</b></p>
+    }
+
+    @if (errorMessage) 
+    {
+        <p style="color: red;"><b>{{ errorMessage }}</b></p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <div>
+            <label for="makeId">Make: </label>
+            <select id="makeId" formControlName="makeId">
+            <option value="">Select a Make</option>
+            
+            @for (make of (makes$ | async); track $index) 
+            {
+                <option [value]="make.id">{{ make.make }}</option>
+            }
+            </select>
+            
+        </div>
+        <br>
+
+        <div>
+            <label>Model Name: </label>
+            <input type="text" formControlName="model">
+        </div>
+        <br>
+
+        <div>
+            <label>MPG: </label>
+            <input type="number" formControlName="mpg">
+        </div>
+        <br>
+
+        <div>
+            <label>Cylinders: </label>
+            <input type="number" formControlName="cylinders">
+        </div>
+        <br>
+
+        <div>
+            <label>Displacement: </label>
+            <input type="number" formControlName="displacement">
+        </div>
+        <br>
+
+        <div>
+            <label>Horsepower: </label>
+            <input type="number" formControlName="horsepower">
+        </div>
+        <br>
+
+        <div>
+            <label>Weight: </label>
+            <input type="number" formControlName="weight">
+        </div>
+        <br>
+
+        <div>
+            <label>Acceleration: </label>
+            <input type="number" formControlName="acceleration">
+        </div>
+        <br>
+
+        <div>
+            <label>Model Year: </label>
+            <input type="number" formControlName="modelYear">
+        </div>
+        <br>
+
+        <button type="submit">Add Model</button>
+    </form>
+</div>

@@ -1,0 +1,33 @@
+<div style="text-align: center;">
+    <h5 style="color: orange;">(Friendly Reminder: Only Administrators can perform this)</h5>
+    <h3>Please fill out the details of the Car Make you would like to add.</h3>
+    <p style="color: red;">All fields need to be filled</p>
+    
+    @if (submitted) 
+    {
+      <p style="color: green;"><b>Car make has been successfully added!</b></p>
+    }
+
+    @if (errorMessage) 
+    {
+      <p style="color: red;"><b>{{ errorMessage }}</b></p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+          <label>Name of Car Make: </label>
+          <input type="text" formControlName="make">
+        </div>
+        
+        <br>
+
+        <div>
+          <label>Country of Origin: </label>
+          <input type="text" formControlName="origin">
+        </div>
+        
+        <br>
+
+        <button type="submit">Add Make</button>
+    </form>
+</div>
