@@ -1,8 +1,8 @@
 # Car Database SPA
 
-This application is a **Single Page Application (SPA)** built with **Angular** on the **Client Side**.
+This application is a **Single Page Application (SPA)** built with **Angular (21)** on the **Client Side**.
 
-The **backend** is powered by **ASP.NET Core/C#**.
+The **backend** is powered by **ASP.NET Core (9)/C#**.
 
 Both client and server sides follow the **Model-View-Controller (MVC) architecture**.
 
