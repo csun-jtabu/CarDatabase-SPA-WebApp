@@ -62,3 +62,36 @@ The database contains a **one-to-many relationship** between two tables:
 - **Registered User login** is required for **viewing any tables**.  
 - **All form fields** have **validation rules** to prevent empty or invalid entries.  
 - The system ensures that **models are associated correctly** with their makes.
+
+---
+
+## Project Screenshots
+
+### Home Page
+![Home Page](images/HomePage.PNG)
+
+### Login Page
+![Login Page](images/LoginPage.PNG)
+
+### Make List
+![Make List](images/MakeList.PNG)
+
+### Model List
+![Model List](images/ModelList.PNG)
+
+### Add Make
+![Add Make GUI](images/AddMake.PNG)
+
+### Delete Make
+![Delete Make GUI](images/DeleteMake.PNG)
+
+### Add Model
+![Add Model GUI](images/AddModel.PNG)
+
+### Delete Model
+![Delete Model GUI](images/DeleteModel.PNG)
+
+---
+
+### Backend API
+![Backend API](images/Backend.PNG)
